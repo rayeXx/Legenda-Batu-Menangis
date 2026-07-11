@@ -1,0 +1,13 @@
+# Processing autosave files
+*.autosave
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Windows
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
