@@ -44,6 +44,11 @@ float blackOutAlpha4 = 0;
 boolean triggerBlackOut4 = false;
 float blackOutStartTime4 = 0;
 
+// Variabel Efek Transisi Black Out (Scene 4 -> 5)
+float blackOutAlpha5 = 0;
+boolean triggerBlackOut5 = false;
+float blackOutStartTime5 = 0;
+
 CharacterIbu ibu;
 CharacterAnak anak;
 
@@ -58,6 +63,7 @@ void setup() {
   setupScene1();
   setupScene2();
   setupScene4();
+  setupScene5();
   setupAudio();  // Muat & mulai semua audio
 }
 
@@ -112,6 +118,15 @@ void draw() {
   }
   if (triggerBlackOut4 && (globalTime - blackOutStartTime4 >= 0.5) && currentScene == 3) {
     currentScene = 4;
+  }
+
+  // Transisi dari Scene 4 ke Scene 5 (Black Out)
+  if (globalTime >= 164.5 && currentScene == 4 && !triggerBlackOut5) {
+    triggerBlackOut5 = true;
+    blackOutStartTime5 = globalTime;
+  }
+  if (triggerBlackOut5 && (globalTime - blackOutStartTime5 >= 0.5) && currentScene == 4) {
+    currentScene = 5;
   }
 
   // ==========================================
@@ -188,6 +203,8 @@ void draw() {
     displayScene3();
   } else if (currentScene == 4) {
     displayScene4();
+  } else if (currentScene == 5) {
+    displayScene5();
   }
   
   // ==========================================
@@ -217,6 +234,21 @@ void draw() {
     }
     rectMode(CORNER);
     fill(0, blackOutAlpha4);
+    rect(0, 0, width, height);
+  }
+
+  // ==========================================
+  // SCREEN TRANSITION EFFECT (BLACK OUT Scene 4->5)
+  // ==========================================
+  if (triggerBlackOut5) {
+    if (currentScene == 4) {
+      blackOutAlpha5 = map(globalTime - blackOutStartTime5, 0, 0.5, 0, 255);
+    } else {
+      blackOutAlpha5 = map(globalTime - (blackOutStartTime5 + 0.5), 0, 0.5, 255, 0);
+      if (blackOutAlpha5 < 0) blackOutAlpha5 = 0;
+    }
+    rectMode(CORNER);
+    fill(0, blackOutAlpha5);
     rect(0, 0, width, height);
   }
 }
