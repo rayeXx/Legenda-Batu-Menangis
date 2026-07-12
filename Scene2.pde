@@ -285,7 +285,7 @@ void displayScene2() {
   // ==========================================================
   // 9. HUD NARASI
   // ==========================================================
-  if (globalTime < 22.0) drawHUDNarasi("Di sebuah desa terpencil hiduplah seorang janda miskin bersama anak perempuan semata wayangnya.");
-  else if (globalTime >= 22.0 && globalTime < 33.0) drawHUDNarasi("Sang ibu bekerja keras setiap hari demi memenuhi kebutuhan hidup.");
+  if (globalTime < 25.0) drawHUDNarasi("Di sebuah desa terpencil hiduplah seorang janda miskin bersama anak perempuan semata wayangnya.");
+  else if (globalTime >= 25.0 && globalTime < 33.0) drawHUDNarasi("Sang ibu bekerja keras setiap hari demi memenuhi kebutuhan hidup.");
   else drawHUDNarasi("Namun anaknya tumbuh menjadi gadis yang cantik, tetapi memiliki sifat malas, manja, dan angkuh.");
 }
