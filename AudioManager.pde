@@ -2,6 +2,10 @@
 // AUDIO MANAGER — Legenda Batu Menangis
 // Menggunakan library Minim
 // ==========================================
+// CATATAN: File .webm mungkin tidak didukung Minim (JavaSound).
+// Jika scene1.webm / hujan.webm / petir.webm tidak bunyi,
+// konversi ke .mp3 menggunakan VLC atau online converter.
+// ==========================================
 import ddf.minim.*;
 
 Minim minim;
@@ -41,6 +45,14 @@ boolean bgm2Started       = false;
 boolean bgm3Started       = false;
 
 // ==========================================
+// VOLUME CONSTANTS
+// Gain dalam dB: 0 = penuh, -6 ≈ 50%, -12 ≈ 25%
+// ==========================================
+final float VOL_BGM  = -10; // BGM dikecilkan 50%
+final float VOL_SFX  = -6;  // SFX normal
+final float VOL_NARASI = -3; // Narasi/dialog sedikit lebih keras
+
+// ==========================================
 // SETUP AUDIO
 // ==========================================
 void setupAudio() {
@@ -77,10 +89,13 @@ void setupAudio() {
   // Pesan moral
   pesanMoral = loadAudioSafe("audio/pesanmoral.mp4");
 
-  // Mulai BGM Scene 1 langsung
+  // ---- Mulai BGM Scene 1 langsung ----
   if (bgmScene1 != null) {
-    bgmScene1.setGain(-4);
+    bgmScene1.setGain(VOL_BGM);
     bgmScene1.loop();
+    println("✅ BGM Scene 1 dimulai");
+  } else {
+    println("⚠️ scene1.webm gagal dimuat. Coba konversi ke scene1.mp3");
   }
 }
 
@@ -88,10 +103,13 @@ void setupAudio() {
 AudioPlayer loadAudioSafe(String path) {
   try {
     AudioPlayer p = minim.loadFile(path);
-    if (p != null) p.setGain(-5);
+    if (p != null) {
+      p.setGain(VOL_BGM);
+      println("✅ Loaded: " + path);
+    }
     return p;
   } catch (Exception e) {
-    println("⚠️ Tidak bisa memuat: " + path);
+    println("⚠️ Gagal memuat: " + path + " → " + e.getMessage());
     return null;
   }
 }
@@ -101,80 +119,97 @@ AudioPlayer loadAudioSafe(String path) {
 // ==========================================
 void updateAudio() {
 
-  // ---- Hentikan BGM1 saat zoom transition ----
-  if (globalTime >= 13.0 && bgmScene1 != null && bgmScene1.isPlaying()) {
+  // ---- Hentikan BGM1 saat zoom transition ke scene 2 ----
+  if (globalTime >= 13.5 && bgmScene1 != null && bgmScene1.isPlaying()) {
     bgmScene1.pause();
   }
 
-  // ---- BGM Scene 2 ----
+  // ---- BGM Scene 2: mulai tepat saat masuk scene 2 ----
   if (currentScene == 2 && !bgm2Started && bgmScene2 != null) {
-    bgmScene2.setGain(-6);
+    bgmScene2.setGain(VOL_BGM);
     bgmScene2.loop();
     bgm2Started = true;
   }
 
-  // ---- BGM Scene 3 & 4 ----
+  // ---- BGM Scene 3 & 4: mulai tepat saat masuk scene 3 ----
   if (currentScene >= 3 && !bgm3Started && bgmScene3 != null) {
     if (bgmScene2 != null && bgmScene2.isPlaying()) bgmScene2.pause();
-    bgmScene3.setGain(-6);
+    bgmScene3.setGain(VOL_BGM);
     bgmScene3.loop();
     bgm3Started = true;
   }
 
-  // ---- Hentikan BGM3 saat storm Scene 5 ----
+  // ---- Hentikan BGM3 saat storm Scene 5 (105s) ----
   if (globalTime >= 105.0 && bgmScene3 != null && bgmScene3.isPlaying()) {
     bgmScene3.pause();
   }
 
   // ==========================================
-  // NARASI — Scene 2
+  // NARASI — timing sinkron TEPAT dengan HUD teks
   // ==========================================
-  playNarasiOnce(narasi1,  1, 15.5);
-  playNarasiOnce(narasi2,  2, 22.5);
-  playNarasiOnce(narasi3,  3, 33.5);
+
+  // Scene 2: teks muncul sejak scene 2 masuk s.d. 22s
+  playNarasiOnce(narasi1,  1, 15.5);   // ← scene 2 masuk
+
+  // Scene 2: teks berubah tepat 22s
+  playNarasiOnce(narasi2,  2, 22.0);
+
+  // Scene 2: teks berubah tepat 33s
+  playNarasiOnce(narasi3,  3, 33.0);
+
+  // Scene 3: teks muncul sejak scene 3 masuk s.d. 55s
+  playNarasiOnce(narasi4,  4, 45.5);   // ← scene 3 masuk (setelah blackout ~45s)
+
+  // Scene 3: teks berubah tepat 55s
+  playNarasiOnce(narasi5,  5, 55.0);
+
+  // Scene 3: teks berubah tepat 65s
+  playNarasiOnce(narasi6,  6, 65.0);
+
+  // Scene 4: narasi setelah dialog anak (HUD: 92s - 105s)
+  playNarasiOnce(narasi7,  7, 92.0);
+
+  // Scene 5: narasi ibu berdoa (HUD: 114s - 135s)
+  playNarasiOnce(narasi8,  8, 114.0);
+
+  // Scene 6: narasi kutukan bertahap (HUD: 137s-165s)
+  playNarasiOnce(narasi9,  9,  137.0);
+  playNarasiOnce(narasi10, 10, 147.0);
+  playNarasiOnce(narasi11, 11, 157.0);
 
   // ==========================================
-  // NARASI — Scene 3
+  // DIALOG — Scene 4 (Pasar)
   // ==========================================
-  playNarasiOnce(narasi4,  4, 46.0);
-  playNarasiOnce(narasi5,  5, 56.0);
-  playNarasiOnce(narasi6,  6, 66.0);
-
-  // ==========================================
-  // DIALOG — Scene 4
-  // ==========================================
+  // Dialog pedagang: mulai saat bubble muncul (79.5s)
   if (globalTime >= 79.5 && !dialog1Played) {
-    playOnce(dialog1);
+    playOnce(dialog1, VOL_NARASI);
     dialog1Played = true;
   }
+  // Dialog anak: mulai saat bubble muncul (84.5s)
   if (globalTime >= 84.5 && !dialog2Played) {
-    playOnce(dialog2);
+    playOnce(dialog2, VOL_NARASI);
     dialog2Played = true;
   }
 
   // ==========================================
-  // NARASI 7 — setelah dialog
-  // ==========================================
-  playNarasiOnce(narasi7, 7, 92.5);
-
-  // ==========================================
-  // SFX + NARASI — Scene 5
+  // SFX — Scene 5 (Ibu Menangis)
   // ==========================================
   if (globalTime >= 105.0 && !sfxMenangisPlayed) {
-    playOnce(sfxMenangis);
+    playOnce(sfxMenangis, VOL_SFX);
     sfxMenangisPlayed = true;
   }
-  playNarasiOnce(narasi8, 8, 114.5);
 
   // ==========================================
-  // SFX + NARASI — Scene 6
+  // SFX — Scene 6 (Kutukan, Petir, Hujan, Membatu)
   // ==========================================
+  // Petir: tepat saat flash putih (135s)
   if (globalTime >= 135.0 && !sfxPetirPlayed) {
-    playOnce(sfxPetir);
+    playOnce(sfxPetir, VOL_SFX);
     sfxPetirPlayed = true;
   }
+  // Hujan loop: mulai 136s, berhenti 165s
   if (globalTime >= 136.0 && !sfxHujanPlaying && sfxHujan != null) {
-    sfxHujan.setGain(-8);
+    sfxHujan.setGain(VOL_BGM);
     sfxHujan.loop();
     sfxHujanPlaying = true;
   }
@@ -182,19 +217,17 @@ void updateAudio() {
     sfxHujan.pause();
     sfxHujanPlaying = false;
   }
+  // SFX membatu: 137s
   if (globalTime >= 137.0 && !sfxMembatuPlayed) {
-    playOnce(sfxMembatu);
+    playOnce(sfxMembatu, VOL_SFX);
     sfxMembatuPlayed = true;
   }
-  playNarasiOnce(narasi9,  9,  137.5);
-  playNarasiOnce(narasi10, 10, 147.5);
-  playNarasiOnce(narasi11, 11, 157.5);
 
   // ==========================================
-  // PESAN MORAL — Scene 7
+  // PESAN MORAL — Scene 7 (170s)
   // ==========================================
   if (globalTime >= 170.0 && !pesanMoralPlayed) {
-    playOnce(pesanMoral);
+    playOnce(pesanMoral, VOL_NARASI);
     pesanMoralPlayed = true;
   }
 }
@@ -204,20 +237,23 @@ void playNarasiOnce(AudioPlayer player, int idx, float startTime) {
   if (player == null) return;
   if (globalTime >= startTime && !narasiPlayed[idx]) {
     player.rewind();
+    player.setGain(VOL_NARASI);
     player.play();
     narasiPlayed[idx] = true;
+    println("▶ Narasi " + idx + " dimulai pada t=" + nf(globalTime, 0, 1) + "s");
   }
 }
 
-// Helper: play SFX sekali (one-shot)
-void playOnce(AudioPlayer player) {
+// Helper: play SFX/dialog sekali
+void playOnce(AudioPlayer player, float gain) {
   if (player == null) return;
   player.rewind();
+  player.setGain(gain);
   player.play();
 }
 
 // ==========================================
-// CLEANUP — dipanggil otomatis saat sketch stop
+// CLEANUP
 // ==========================================
 void stop() {
   AudioPlayer[] all = {
