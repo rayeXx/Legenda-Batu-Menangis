@@ -218,8 +218,8 @@ void updateAudio() {
     sfxHujan.pause();
     sfxHujanPlaying = false;
   }
-  // SFX membatu: 137s
-  if (globalTime >= 137.0 && !sfxMembatuPlayed) {
+  // SFX membatu: ditunda 3 detik → 140s
+  if (globalTime >= 140.0 && !sfxMembatuPlayed) {
     playOnce(sfxMembatu, VOL_SFX);
     sfxMembatuPlayed = true;
   }
