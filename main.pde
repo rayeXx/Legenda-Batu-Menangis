@@ -51,10 +51,12 @@ void setup() {
   setupScene1();
   setupScene2();
   setupScene4();
+  setupAudio();  // Muat & mulai semua audio
 }
 
 void draw() {
   globalTime = millis() / 1000.0;
+  updateAudio();  // Update audio setiap frame sesuai timeline
   
   // ==========================================
   // TIMELINE: start zoom at 12 s in Scene 1
