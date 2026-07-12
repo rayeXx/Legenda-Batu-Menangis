@@ -59,35 +59,35 @@ void setupAudio() {
   minim = new Minim(this);
 
   // Musik latar
-  bgmScene1   = loadAudioSafe("audio/scene1.webm");
+  bgmScene1   = loadAudioSafe("audio/scene1.mp3");
   bgmScene2   = loadAudioSafe("audio/scene2.mp3");
   bgmScene3   = loadAudioSafe("audio/scene3.mp3");
 
   // SFX
-  sfxHujan    = loadAudioSafe("audio/hujan.webm");
-  sfxPetir    = loadAudioSafe("audio/petir.webm");
-  sfxMenangis = loadAudioSafe("audio/sfx menangis.mp4");
-  sfxMembatu  = loadAudioSafe("audio/sfxmembatu.mp4");
+  sfxHujan    = loadAudioSafe("audio/hujan.mp3");
+  sfxPetir    = loadAudioSafe("audio/petir.mp3");
+  sfxMenangis = loadAudioSafe("audio/sfx_menangis.mp3");
+  sfxMembatu  = loadAudioSafe("audio/sfxmembatu.mp3");
 
   // Narasi
-  narasi1  = loadAudioSafe("audio/narasi1.mp4");
-  narasi2  = loadAudioSafe("audio/narasi2.mp4");
-  narasi3  = loadAudioSafe("audio/narasi3.mp4");
-  narasi4  = loadAudioSafe("audio/narasi4.mp4");
-  narasi5  = loadAudioSafe("audio/narasi5.mp4");
-  narasi6  = loadAudioSafe("audio/narasi6.mp4");
-  narasi7  = loadAudioSafe("audio/narasi7.mp4");
-  narasi8  = loadAudioSafe("audio/narasi8.mp4");
-  narasi9  = loadAudioSafe("audio/narasi9.mp4");
-  narasi10 = loadAudioSafe("audio/narasi10.mp4");
-  narasi11 = loadAudioSafe("audio/narasi11.mp4");
+  narasi1  = loadAudioSafe("audio/narasi1.mp3");
+  narasi2  = loadAudioSafe("audio/narasi2.mp3");
+  narasi3  = loadAudioSafe("audio/narasi3.mp3");
+  narasi4  = loadAudioSafe("audio/narasi4.mp3");
+  narasi5  = loadAudioSafe("audio/narasi5.mp3");
+  narasi6  = loadAudioSafe("audio/narasi6.mp3");
+  narasi7  = loadAudioSafe("audio/narasi7.mp3");
+  narasi8  = loadAudioSafe("audio/narasi8.mp3");
+  narasi9  = loadAudioSafe("audio/narasi9.mp3");
+  narasi10 = loadAudioSafe("audio/narasi10.mp3");
+  narasi11 = loadAudioSafe("audio/narasi11.mp3");
 
   // Dialog
-  dialog1    = loadAudioSafe("audio/dialog1.mpeg");
-  dialog2    = loadAudioSafe("audio/dialog2.mpeg");
+  dialog1    = loadAudioSafe("audio/dialog1.mp3");
+  dialog2    = loadAudioSafe("audio/dialog2.mp3");
 
   // Pesan moral
-  pesanMoral = loadAudioSafe("audio/pesanmoral.mp4");
+  pesanMoral = loadAudioSafe("audio/pesanmoral.mp3");
 
   // ---- Mulai BGM Scene 1 langsung ----
   if (bgmScene1 != null) {
