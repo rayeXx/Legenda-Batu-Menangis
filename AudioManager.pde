@@ -48,10 +48,11 @@ boolean bgm3Started       = false;
 // VOLUME CONSTANTS
 // Gain dalam dB: 0 = penuh, -6 ≈ 50%, -12 ≈ 25%
 // ==========================================
-final float VOL_BGM  = -10; // BGM dikecilkan 50%
-final float VOL_BGM2 = -12; // BGM Scene 2 lebih kecil 20% lagi
-final float VOL_SFX  = -6;  // SFX normal
-final float VOL_NARASI = -3; // Narasi/dialog sedikit lebih keras
+final float VOL_BGM    = -10; // BGM dikecilkan 50%
+final float VOL_BGM2   = -12; // BGM Scene 2 lebih kecil 20% lagi
+final float VOL_SFX    = -6;  // SFX efek suara
+final float VOL_NARASI = -3;  // Narasi/dialog
+final float VOL_DIALOG2 = 2;  // Dialog2 digedein 75% (+5dB dari VOL_NARASI)
 
 // ==========================================
 // SETUP AUDIO
@@ -186,9 +187,9 @@ void updateAudio() {
     playOnce(dialog1, VOL_NARASI);
     dialog1Played = true;
   }
-  // Dialog anak: mulai saat bubble muncul (84.5s)
+  // Dialog anak: mulai saat bubble muncul (84.5s) — volume lebih keras
   if (globalTime >= 84.5 && !dialog2Played) {
-    playOnce(dialog2, VOL_NARASI);
+    playOnce(dialog2, VOL_DIALOG2);
     dialog2Played = true;
   }
 
