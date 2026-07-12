@@ -14,6 +14,7 @@ Minim minim;
 AudioPlayer bgmScene1;
 AudioPlayer bgmScene2;
 AudioPlayer bgmScene3;
+AudioPlayer bgmOutro;
 
 // --- SFX Atmosfer ---
 AudioPlayer sfxHujan;
@@ -43,6 +44,7 @@ boolean sfxMembatuPlayed  = false;
 boolean pesanMoralPlayed  = false;
 boolean bgm2Started       = false;
 boolean bgm3Started       = false;
+boolean outroStarted      = false;
 
 // ==========================================
 // VOLUME CONSTANTS
@@ -53,6 +55,7 @@ final float VOL_BGM2   = -12; // BGM Scene 2 lebih kecil 20% lagi
 final float VOL_SFX    = -6;  // SFX efek suara
 final float VOL_NARASI = -3;  // Narasi/dialog
 final float VOL_DIALOG2 = 2;  // Dialog2 digedein 75% (+5dB dari VOL_NARASI)
+final float VOL_OUTRO  = -12; // Outro dikecilkan ke 25% (-12 dB)
 
 // ==========================================
 // SETUP AUDIO
@@ -64,6 +67,7 @@ void setupAudio() {
   bgmScene1   = loadAudioSafe("audio/scene1.mp3");
   bgmScene2   = loadAudioSafe("audio/scene2.mp3");
   bgmScene3   = loadAudioSafe("audio/scene3.mp3");
+  bgmOutro    = loadAudioSafe("audio/outro.mp3");
 
   // SFX
   sfxHujan    = loadAudioSafe("audio/hujan.mp3");
@@ -226,8 +230,15 @@ void updateAudio() {
   }
 
   // ==========================================
-  // PESAN MORAL — Scene 7 (165s)
+  // PESAN MORAL & OUTRO — Scene 5 (160s / 165s)
   // ==========================================
+  // BGM Outro: mulai ketika masuk Scene 5 (detik 160s)
+  if (globalTime >= 160.0 && !outroStarted && bgmOutro != null) {
+    bgmOutro.setGain(VOL_OUTRO);
+    bgmOutro.loop();
+    outroStarted = true;
+  }
+
   if (globalTime >= 165.0 && !pesanMoralPlayed) {
     playOnce(pesanMoral, VOL_NARASI);
     pesanMoralPlayed = true;
@@ -259,7 +270,7 @@ void playOnce(AudioPlayer player, float gain) {
 // ==========================================
 void stop() {
   AudioPlayer[] all = {
-    bgmScene1, bgmScene2, bgmScene3,
+    bgmScene1, bgmScene2, bgmScene3, bgmOutro,
     sfxHujan, sfxPetir, sfxMenangis, sfxMembatu,
     narasi1, narasi2, narasi3, narasi4, narasi5, narasi6,
     narasi7, narasi8, narasi9, narasi10, narasi11,
