@@ -49,6 +49,7 @@ boolean bgm3Started       = false;
 // Gain dalam dB: 0 = penuh, -6 ≈ 50%, -12 ≈ 25%
 // ==========================================
 final float VOL_BGM  = -10; // BGM dikecilkan 50%
+final float VOL_BGM2 = -12; // BGM Scene 2 lebih kecil 20% lagi
 final float VOL_SFX  = -6;  // SFX normal
 final float VOL_NARASI = -3; // Narasi/dialog sedikit lebih keras
 
@@ -126,7 +127,7 @@ void updateAudio() {
 
   // ---- BGM Scene 2: mulai tepat saat masuk scene 2 ----
   if (currentScene == 2 && !bgm2Started && bgmScene2 != null) {
-    bgmScene2.setGain(VOL_BGM);
+    bgmScene2.setGain(VOL_BGM2);  // lebih kecil 20% dari BGM lain
     bgmScene2.loop();
     bgm2Started = true;
   }
@@ -151,8 +152,8 @@ void updateAudio() {
   // Scene 2: teks muncul sejak scene 2 masuk s.d. 22s
   playNarasiOnce(narasi1,  1, 15.5);   // ← scene 2 masuk
 
-  // Scene 2: teks berubah tepat 22s
-  playNarasiOnce(narasi2,  2, 22.0);
+  // Scene 2: narasi 2 ditunda 3 detik (25s) agar narasi 1 selesai dulu
+  playNarasiOnce(narasi2,  2, 25.0);
 
   // Scene 2: teks berubah tepat 33s
   playNarasiOnce(narasi3,  3, 33.0);
