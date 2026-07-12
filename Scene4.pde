@@ -8,6 +8,20 @@ boolean scene4SetupDone = false;
 boolean npcFrozen = false;
 float zoomProgress = 0;
 
+// Credits array — dideklarasi GLOBAL agar tidak dialokasikan ulang tiap frame
+String[][] credits = {
+  {"PRODUCER",           "Nama Anda / Teman 1"},
+  {"DIRECTOR",           "Nama Teman 2"},
+  {"SCREENPLAY WRITER",  "Nama Teman 3"},
+  {"LEAD ANIMATOR",      "Nama Teman 4"},
+  {"CHARACTER DESIGNER", "Nama Teman 5"},
+  {"BACKGROUND ARTIST",  "Nama Teman 6"},
+  {"VFX SUPERVISOR",     "Nama Teman 7"},
+  {"SOUND DESIGNER",     "Nama Teman 8"},
+  {"PRODUCTION MANAGER", "Nama Teman 9"},
+  {"EXECUTIVE PRODUCER", "Nama Teman 10"}
+};
+
 void setupScene4() {
   if (scene4SetupDone) return;
   
@@ -36,6 +50,48 @@ void setupScene4() {
 void displayScene4() {
   // Pastikan setup dipanggil sekali
   setupScene4();
+  
+  // OPTIMASI: Saat credits fullscreen (183.5s+), skip semua rendering scene berat
+  // dan langsung render credits saja agar tidak lag
+  if (globalTime >= 183.5) {
+    fill(0);
+    rectMode(CORNER);
+    rect(0, 0, width, height);
+    
+    float scrollSpeed = 60.0;
+    float scrollY = (height + 50) - (globalTime - 183.5) * scrollSpeed;
+    float currentY = scrollY;
+    
+    textAlign(CENTER, TOP);
+    textSize(28);
+    fill(255, 215, 100);
+    text("LEGENDA BATU MENANGIS", width/2, currentY);
+    currentY += 95;
+    
+    for (int i = 0; i < credits.length; i++) {
+      textSize(15);
+      fill(200);
+      text(credits[i][0], width/2, currentY);
+      textSize(19);
+      fill(255);
+      text(credits[i][1], width/2, currentY + 23);
+      currentY += 78;
+    }
+    currentY += 40;
+    
+    if (currentY < height/2) {
+      float finalAlpha = map(height/2 - currentY, 0, 100, 0, 255);
+      finalAlpha = constrain(finalAlpha, 0, 255);
+      fill(255, 215, 100, finalAlpha);
+      textSize(36);
+      textAlign(CENTER, CENTER);
+      text("SELESAI", width/2, height/2 - 40);
+      fill(200, finalAlpha);
+      textSize(18);
+      text("Terima Kasih Telah Menonton", width/2, height/2 + 20);
+    }
+    return;  // ← Keluar lebih awal, skip semua rendering scene 4 di bawah
+  }
   
   // Update timeline states
   npcFrozen = (globalTime >= 85.0);
@@ -484,20 +540,6 @@ void displayScene4() {
       fill(255, 215, 100);
       text("LEGENDA BATU MENANGIS", width/2, currentY);
       currentY += 95;
-      
-      // CREDITS ARRAY: You can easily fill in your name and your friends' names here!
-      String[][] credits = {
-        {"PRODUCER", "Nama Anda / Teman 1"},
-        {"DIRECTOR", "Nama Teman 2"},
-        {"SCREENPLAY WRITER", "Nama Teman 3"},
-        {"LEAD ANIMATOR", "Nama Teman 4"},
-        {"CHARACTER DESIGNER", "Nama Teman 5"},
-        {"BACKGROUND ARTIST", "Nama Teman 6"},
-        {"VFX SUPERVISOR", "Nama Teman 7"},
-        {"SOUND DESIGNER", "Nama Teman 8"},
-        {"PRODUCTION MANAGER", "Nama Teman 9"},
-        {"EXECUTIVE PRODUCER", "Nama Teman 10"}
-      };
       
       for (int i = 0; i < credits.length; i++) {
         textSize(15);
