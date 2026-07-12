@@ -55,7 +55,7 @@ final float VOL_BGM2   = -12; // BGM Scene 2 lebih kecil 20% lagi
 final float VOL_SFX    = -6;  // SFX efek suara
 final float VOL_NARASI = -3;  // Narasi/dialog
 final float VOL_DIALOG2 = 2;  // Dialog2 digedein 75% (+5dB dari VOL_NARASI)
-final float VOL_OUTRO  = -12; // Outro dikecilkan ke 25% (-12 dB)
+final float VOL_OUTRO  = -20; // Outro dikecilkan ke 10% (-20 dB)
 
 // ==========================================
 // SETUP AUDIO
