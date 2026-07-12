@@ -171,13 +171,13 @@ void updateAudio() {
   // Scene 4: narasi setelah dialog anak (HUD: 88s - 105s)
   playNarasiOnce(narasi7,  7, 88.0);
 
-  // Scene 5: narasi ibu berdoa (HUD: 114s - 135s)
-  playNarasiOnce(narasi8,  8, 114.0);
+  // Scene 5: narasi ibu berdoa (HUD: 109s - 130s)
+  playNarasiOnce(narasi8,  8, 109.0);
 
-  // Scene 6: narasi kutukan bertahap (HUD: 137s-165s)
-  playNarasiOnce(narasi9,  9,  137.0);
-  playNarasiOnce(narasi10, 10, 147.0);
-  playNarasiOnce(narasi11, 11, 157.0);
+  // Scene 6: narasi kutukan bertahap (HUD: 132s-160s)
+  playNarasiOnce(narasi9,  9,  132.0);
+  playNarasiOnce(narasi10, 10, 142.0);
+  playNarasiOnce(narasi11, 11, 152.0);
 
   // ==========================================
   // DIALOG — Scene 4 (Pasar)
@@ -196,7 +196,7 @@ void updateAudio() {
   // ==========================================
   // SFX — Scene 5 (Ibu Menangis)
   // ==========================================
-  if (globalTime >= 105.0 && !sfxMenangisPlayed) {
+  if (globalTime >= 100.0 && !sfxMenangisPlayed) {
     playOnce(sfxMenangis, VOL_SFX);
     sfxMenangisPlayed = true;
   }
@@ -204,31 +204,31 @@ void updateAudio() {
   // ==========================================
   // SFX — Scene 6 (Kutukan, Petir, Hujan, Membatu)
   // ==========================================
-  // Petir: tepat saat flash putih (135s)
-  if (globalTime >= 135.0 && !sfxPetirPlayed) {
+  // Petir: tepat saat flash putih (130s)
+  if (globalTime >= 130.0 && !sfxPetirPlayed) {
     playOnce(sfxPetir, VOL_SFX);
     sfxPetirPlayed = true;
   }
-  // Hujan loop: mulai 136s, berhenti 165s
-  if (globalTime >= 136.0 && !sfxHujanPlaying && sfxHujan != null) {
+  // Hujan loop: mulai 131s, berhenti 160s
+  if (globalTime >= 131.0 && !sfxHujanPlaying && sfxHujan != null) {
     sfxHujan.setGain(VOL_BGM);
     sfxHujan.loop();
     sfxHujanPlaying = true;
   }
-  if (globalTime >= 165.0 && sfxHujanPlaying && sfxHujan != null && sfxHujan.isPlaying()) {
+  if (globalTime >= 160.0 && sfxHujanPlaying && sfxHujan != null && sfxHujan.isPlaying()) {
     sfxHujan.pause();
     sfxHujanPlaying = false;
   }
-  // SFX membatu: ditunda 3 detik → 140s
-  if (globalTime >= 140.0 && !sfxMembatuPlayed) {
+  // SFX membatu: ditunda 3 detik → 135s
+  if (globalTime >= 135.0 && !sfxMembatuPlayed) {
     playOnce(sfxMembatu, VOL_SFX);
     sfxMembatuPlayed = true;
   }
 
   // ==========================================
-  // PESAN MORAL — Scene 7 (170s)
+  // PESAN MORAL — Scene 7 (165s)
   // ==========================================
-  if (globalTime >= 170.0 && !pesanMoralPlayed) {
+  if (globalTime >= 165.0 && !pesanMoralPlayed) {
     playOnce(pesanMoral, VOL_NARASI);
     pesanMoralPlayed = true;
   }

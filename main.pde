@@ -121,7 +121,7 @@ void draw() {
   }
 
   // Transisi dari Scene 4 ke Scene 5 (Black Out)
-  if (globalTime >= 164.5 && currentScene == 4 && !triggerBlackOut5) {
+  if (globalTime >= 159.5 && currentScene == 4 && !triggerBlackOut5) {
     triggerBlackOut5 = true;
     blackOutStartTime5 = globalTime;
   }

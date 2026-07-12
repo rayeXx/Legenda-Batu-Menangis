@@ -142,21 +142,21 @@ void displayScene4() {
     centerX = lerp(width/2, anak.x, t);
     centerY = lerp(height/2, height - 145, t);
     zoomProgress = t;
-  } else if (globalTime >= 105.0 && globalTime < 135.0) {
+  } else if (globalTime >= 100.0 && globalTime < 130.0) {
     // SCENE 5: Camera slowly pans and zooms on the weeping mother
-    float t = map(globalTime, 105.0, 108.0, 0.0, 1.0);
+    float t = map(globalTime, 100.0, 103.0, 0.0, 1.0);
     t = constrain(t, 0.0, 1.0);
     zoomScale = lerp(1.0, 2.1, t);
     centerX = lerp(width/2, ibu.x, t);
     centerY = lerp(height/2, ibu.y - 120, t);
-  } else if (globalTime >= 135.0 && globalTime < 165.0) {
+  } else if (globalTime >= 130.0 && globalTime < 160.0) {
     // SCENE 6: Camera focuses on both (slightly pulled back but keeping zoom on Mother/Anak space)
     zoomScale = 1.6;
     centerX = (ibu.x + anak.x) / 2.0;
     centerY = height - 200;
-  } else if (globalTime >= 165.0) {
+  } else if (globalTime >= 160.0) {
     // SCENE 7: Camera slowly pans out back to normal overview
-    float t = map(globalTime, 165.0, 169.0, 1.0, 0.0);
+    float t = map(globalTime, 160.0, 164.0, 1.0, 0.0);
     t = constrain(t, 0.0, 1.0);
     zoomScale = lerp(1.0, 1.6, t);
     centerX = lerp(width/2, (ibu.x + anak.x) / 2.0, t);
@@ -165,13 +165,13 @@ void displayScene4() {
   
   // Calculate storm background progress (Scene 5 & 6)
   float stormProgress = 0.0;
-  if (globalTime >= 105.0 && globalTime < 112.0) {
-    stormProgress = map(globalTime, 105.0, 112.0, 0.0, 1.0);
-  } else if (globalTime >= 112.0 && globalTime < 165.0) {
+  if (globalTime >= 100.0 && globalTime < 107.0) {
+    stormProgress = map(globalTime, 100.0, 107.0, 0.0, 1.0);
+  } else if (globalTime >= 107.0 && globalTime < 160.0) {
     stormProgress = 1.0;
-  } else if (globalTime >= 165.0 && globalTime < 169.0) {
+  } else if (globalTime >= 160.0 && globalTime < 164.0) {
     // Scene 7 storm clears away
-    stormProgress = map(globalTime, 165.0, 169.0, 1.0, 0.0);
+    stormProgress = map(globalTime, 160.0, 164.0, 1.0, 0.0);
   }
   stormProgress = constrain(stormProgress, 0.0, 1.0);
   
@@ -284,12 +284,12 @@ void displayScene4() {
   // 4. UPDATE & RENDER WALKING NPCs
   // ==========================================
   for (NPCAnakKecil npc : npcsAnak) {
-    npc.isMoving = !npcFrozen && (globalTime < 105.0); 
+    npc.isMoving = !npcFrozen && (globalTime < 100.0); 
     npc.update();
     npc.display();
   }
   for (NPCWarga npc : npcsWarga) {
-    npc.isMoving = !npcFrozen && (globalTime < 105.0);
+    npc.isMoving = !npcFrozen && (globalTime < 100.0);
     npc.update();
     npc.display();
   }
@@ -323,7 +323,7 @@ void displayScene4() {
     ibu.y = height - 110;
     ibu.update();
     
-    if (globalTime < 105.0) {
+    if (globalTime < 100.0) {
       // Scene 4 - Stand and Point
       ibu.displayWalking(0); 
       if (globalTime < 83.5) {
@@ -331,9 +331,9 @@ void displayScene4() {
       } else {
         displayAnakAngryPointing();
       }
-    } else if (globalTime >= 105.0 && globalTime < 135.0) {
+    } else if (globalTime >= 100.0 && globalTime < 130.0) {
       // SCENE 5: Mother Prays, Daughter looks back in shock
-      float prayProgress = map(globalTime, 105.0, 110.0, 0.0, 1.0);
+      float prayProgress = map(globalTime, 100.0, 105.0, 0.0, 1.0);
       prayProgress = constrain(prayProgress, 0.0, 1.0);
       
       ibu.displayPraying(prayProgress);
@@ -342,7 +342,7 @@ void displayScene4() {
       // SCENE 6 & 7: The Curse takes effect, Daughter turns into stone
       ibu.displayPraying(1.0); // Mother keeps weeping/praying
       
-      float stoneProgress = map(globalTime, 135.0, 155.0, 0.0, 1.0);
+      float stoneProgress = map(globalTime, 130.0, 150.0, 0.0, 1.0);
       stoneProgress = constrain(stoneProgress, 0.0, 1.0);
       anak.displayStoning(stoneProgress);
       
@@ -475,15 +475,15 @@ void displayScene4() {
   }  // ==========================================
   // HUD NARASI BERTAHAP (Scene 4, 5 & 6)
   // ==========================================
-  if (globalTime >= 157.0 && globalTime < 165.0) {
+  if (globalTime >= 152.0 && globalTime < 160.0) {
     drawHUDNarasi("Batu itu terus mengeluarkan air mata penyesalan.");
-  } else if (globalTime >= 147.0 && globalTime < 157.0) {
+  } else if (globalTime >= 142.0 && globalTime < 152.0) {
     drawHUDNarasi("Sedikit demi sedikit seluruh tubuhnya berubah menjadi batu.");
-  } else if (globalTime >= 137.0 && globalTime < 147.0) {
+  } else if (globalTime >= 132.0 && globalTime < 142.0) {
     drawHUDNarasi("Seketika langit menjadi gelap. Tubuh sang anak perlahan mengeras.");
-  } else if (globalTime >= 114.0 && globalTime < 135.0) {
+  } else if (globalTime >= 109.0 && globalTime < 130.0) {
     drawHUDNarasi("Hati sang ibu hancur. Dengan penuh kesedihan ia berdoa kepada Tuhan agar memberikan hukuman yang setimpal kepada anaknya.");
-  } else if (globalTime >= 88.0 && globalTime < 101.0) {
+  } else if (globalTime >= 88.0 && globalTime < 100.0) {
     drawHUDNarasi("Dengan penuh kesombongan sang anak mengaku bahwa wanita tua itu hanyalah pembantunya.");
   }
 }
