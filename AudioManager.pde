@@ -168,8 +168,8 @@ void updateAudio() {
   // Scene 3: teks berubah tepat 65s
   playNarasiOnce(narasi6,  6, 65.0);
 
-  // Scene 4: narasi setelah dialog anak (HUD: 92s - 105s)
-  playNarasiOnce(narasi7,  7, 92.0);
+  // Scene 4: narasi setelah dialog anak (HUD: 88s - 105s)
+  playNarasiOnce(narasi7,  7, 88.0);
 
   // Scene 5: narasi ibu berdoa (HUD: 114s - 135s)
   playNarasiOnce(narasi8,  8, 114.0);

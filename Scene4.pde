@@ -51,15 +51,15 @@ void displayScene4() {
   // Pastikan setup dipanggil sekali
   setupScene4();
   
-  // OPTIMASI: Saat credits fullscreen (183.5s+), skip semua rendering scene berat
+  // OPTIMASI: Saat credits fullscreen (189.5s+), skip semua rendering scene berat
   // dan langsung render credits saja agar tidak lag
-  if (globalTime >= 183.5) {
+  if (globalTime >= 189.5) {
     fill(0);
     rectMode(CORNER);
     rect(0, 0, width, height);
     
     float scrollSpeed = 60.0;
-    float scrollY = (height + 50) - (globalTime - 183.5) * scrollSpeed;
+    float scrollY = (height + 50) - (globalTime - 189.5) * scrollSpeed;
     float currentY = scrollY;
     
     textAlign(CENTER, TOP);
@@ -126,7 +126,7 @@ void displayScene4() {
     zoomScale = lerp(1.0, 1.7, t);
     centerX = lerp(width/2, pedagang2.x, t);
     centerY = lerp(height/2, height - 145, t);
-  } else if (globalTime >= 84.5 && globalTime < 92.0) {
+  } else if (globalTime >= 84.5 && globalTime < 88.0) {
     // Zoom-in to Anak (speaking)
     float t = map(globalTime, 84.5, 85.3, 0.0, 1.0);
     t = constrain(t, 0.0, 1.0);
@@ -134,9 +134,9 @@ void displayScene4() {
     centerX = lerp(width/2, anak.x, t);
     centerY = lerp(height/2, height - 145, t);
     zoomProgress = t; // Drives red kebaya color transition
-  } else if (globalTime >= 92.0 && globalTime < 94.0) {
+  } else if (globalTime >= 88.0 && globalTime < 90.0) {
     // Zoom-out transition back to normal
-    float t = map(globalTime, 92.0, 94.0, 1.0, 0.0);
+    float t = map(globalTime, 88.0, 90.0, 1.0, 0.0);
     t = constrain(t, 0.0, 1.0);
     zoomScale = lerp(1.0, 1.9, t);
     centerX = lerp(width/2, anak.x, t);
@@ -429,8 +429,8 @@ void displayScene4() {
   // 6. DIALOG SPEECH BUBBLES
   // ==========================================
   if (globalTime >= 79.5 && globalTime < 84.5) {
-    drawSpeechBubble(pedagang2.x, pedagang2.y, "Siapakah wanita tua itu?", true);
-  } else if (globalTime >= 84.5 && globalTime < 92.0) {
+    drawSpeechBubble(pedagang2.x, pedagang2.y, "Hai Nona, siapakah wanita tua itu?", true);
+  } else if (globalTime >= 84.5 && globalTime < 88.0) {
     drawSpeechBubble(anak.x, anak.y, "Dia hanya pembantuku!", false);
   }
 
@@ -475,11 +475,11 @@ void displayScene4() {
   }
 
   // ==========================================
-  // SCENE 7: PESAN MORAL CARD OVERLAY (Detik 169.0 - 182.0)
+  // SCENE 7: PESAN MORAL CARD OVERLAY (Detik 169.0 - 188.0)
   // ==========================================
-  if (globalTime >= 169.0 && globalTime < 182.0) {
+  if (globalTime >= 169.0 && globalTime < 188.0) {
     float cardAlpha = map(globalTime, 169.0, 170.0, 0, 255);
-    if (globalTime >= 181.0) cardAlpha = map(globalTime, 181.0, 182.0, 255, 0);
+    if (globalTime >= 187.0) cardAlpha = map(globalTime, 187.0, 188.0, 255, 0);
     cardAlpha = constrain(cardAlpha, 0, 255);
     
     rectMode(CENTER);
@@ -509,19 +509,19 @@ void displayScene4() {
     drawHUDNarasi("Seketika langit menjadi gelap. Tubuh sang anak perlahan mengeras.");
   } else if (globalTime >= 114.0 && globalTime < 135.0) {
     drawHUDNarasi("Hati sang ibu hancur. Dengan penuh kesedihan ia berdoa kepada Tuhan agar memberikan hukuman yang setimpal kepada anaknya.");
-  } else if (globalTime >= 92.0 && globalTime < 105.0) {
+  } else if (globalTime >= 88.0 && globalTime < 101.0) {
     drawHUDNarasi("Dengan penuh kesombongan sang anak mengaku bahwa wanita tua itu hanyalah pembantunya.");
   }
   
-  // SCENE 7: FADE TO BLACK OUTRO & CREDIT SCENE (Detik 182.0+)
-  if (globalTime >= 182.0) {
-    float creditsAlpha = map(globalTime, 182.0, 183.5, 0, 255);
+  // SCENE 7: FADE TO BLACK OUTRO & CREDIT SCENE (Detik 188.0+)
+  if (globalTime >= 188.0) {
+    float creditsAlpha = map(globalTime, 188.0, 189.5, 0, 255);
     creditsAlpha = constrain(creditsAlpha, 0, 255);
     rectMode(CORNER);
     fill(0, creditsAlpha);
     rect(0, 0, width, height);
     
-    if (globalTime >= 183.5) {
+    if (globalTime >= 189.5) {
       // Draw background solid black
       fill(0);
       rect(0, 0, width, height);
