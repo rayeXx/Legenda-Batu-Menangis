@@ -481,8 +481,10 @@ void displayScene4() {
     drawHUDNarasi("Sedikit demi sedikit seluruh tubuhnya berubah menjadi batu.");
   } else if (globalTime >= 132.0 && globalTime < 142.0) {
     drawHUDNarasi("Seketika langit menjadi gelap. Tubuh sang anak perlahan mengeras.");
-  } else if (globalTime >= 109.0 && globalTime < 130.0) {
-    drawHUDNarasi("Hati sang ibu hancur. Dengan penuh kesedihan ia berdoa kepada Tuhan agar memberikan hukuman yang setimpal kepada anaknya.");
+  } else if (globalTime >= 116.0 && globalTime < 126.0) {
+    drawHUDNarasi("agar memberikan hukuman yang setimpal kepada anaknya.");
+  } else if (globalTime >= 109.0 && globalTime < 116.0) {
+    drawHUDNarasi("Hati sang ibu hancur. Dengan penuh kesedihan ia berdoa kepada Tuhan");
   } else if (globalTime >= 88.0 && globalTime < 100.0) {
     drawHUDNarasi("Dengan penuh kesombongan sang anak mengaku bahwa wanita tua itu hanyalah pembantunya.");
   }
